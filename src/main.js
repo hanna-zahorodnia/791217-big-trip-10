@@ -1,3 +1,5 @@
+'use strict';
+
 const TRIPS_AMOUNT = 3;
 
 const createMenuComponent = () => {
@@ -217,7 +219,7 @@ const createSortComponent = () => {
       <span class="trip-sort__item  trip-sort__item--offers">Offers</span>
     </form>`
   );
-}
+};
 
 const createFormComponent = () => {
   return (
