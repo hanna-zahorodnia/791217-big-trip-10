@@ -2,12 +2,12 @@ const TRIPS_AMOUNT = 3;
 
 const createMenuComponent = () => {
   return (
-      `<nav class="trip-controls__trip-tabs  trip-tabs">
-        <a class="trip-tabs__btn  trip-tabs__btn--active" href="#">Table</a>
-        <a class="trip-tabs__btn" href="#">Stats</a>
-      </nav>`
+    `<nav class="trip-controls__trip-tabs  trip-tabs">
+      <a class="trip-tabs__btn  trip-tabs__btn--active" href="#">Table</a>
+      <a class="trip-tabs__btn" href="#">Stats</a>
+    </nav>`
   );
-}
+};
 
 const createFilterComponent = () => {
   return (
@@ -30,11 +30,11 @@ const createFilterComponent = () => {
     <button class="visually-hidden" type="submit">Accept filter</button>
   </form>`
   );
-}
+};
 
 const createCardComponent = () => {
   return (
-      `<li class="trip-days__item  day">
+    `<li class="trip-days__item  day">
       <div class="day__info">
         <span class="day__counter">1</span>
         <time class="day__date" datetime="2019-03-18">MAR 18</time>
@@ -67,7 +67,7 @@ const createCardComponent = () => {
                 <span class="event__offer-title">Order Uber</span>
                 &plus;
                 &euro;&nbsp;<span class="event__offer-price">20</span>
-               </li>
+                </li>
             </ul>
 
             <button class="event__rollup-btn" type="button">
@@ -102,11 +102,11 @@ const createCardComponent = () => {
                 <span class="event__offer-title">Add luggage</span>
                 &plus;
                 &euro;&nbsp;<span class="event__offer-price">50</span>
-               </li>
-               <li class="event__offer">
-                 <span class="event__offer-title">Switch to comfort</span>
-                 &plus;
-                 &euro;&nbsp;<span class="event__offer-price">80</span>
+                </li>
+                <li class="event__offer">
+                  <span class="event__offer-title">Switch to comfort</span>
+                  &plus;
+                  &euro;&nbsp;<span class="event__offer-price">80</span>
                 </li>
             </ul>
 
@@ -142,7 +142,7 @@ const createCardComponent = () => {
                 <span class="event__offer-title">Rent a car</span>
                 &plus;
                 &euro;&nbsp;<span class="event__offer-price">200</span>
-               </li>
+                </li>
             </ul>
 
             <button class="event__rollup-btn" type="button">
@@ -177,7 +177,7 @@ const createCardComponent = () => {
                 <span class="event__offer-title">Add breakfast</span>
                 &plus;
                 &euro;&nbsp;<span class="event__offer-price">50</span>
-               </li>
+                </li>
             </ul>
 
             <button class="event__rollup-btn" type="button">
@@ -188,34 +188,34 @@ const createCardComponent = () => {
       </ul>
     </li>`
   );
-}
+};
 
 const createSortComponent = () => {
   return (
-      `<form class="trip-events__trip-sort  trip-sort" action="#" method="get">
-        <span class="trip-sort__item  trip-sort__item--day"></span>
+    `<form class="trip-events__trip-sort  trip-sort" action="#" method="get">
+      <span class="trip-sort__item  trip-sort__item--day"></span>
 
-        <div class="trip-sort__item  trip-sort__item--event">
-          <input id="sort-event" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="sort-event">
-          <label class="trip-sort__btn" for="sort-event">Event</label>
-        </div>
+      <div class="trip-sort__item  trip-sort__item--event">
+        <input id="sort-event" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="sort-event">
+        <label class="trip-sort__btn" for="sort-event">Event</label>
+      </div>
 
-        <div class="trip-sort__item  trip-sort__item--time">
-          <input id="sort-time" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="sort-time" checked>
-          <label class="trip-sort__btn  trip-sort__btn--active  trip-sort__btn--by-increase" for="sort-time">
-            Time
-          </label>
-        </div>
+      <div class="trip-sort__item  trip-sort__item--time">
+        <input id="sort-time" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="sort-time" checked>
+        <label class="trip-sort__btn  trip-sort__btn--active  trip-sort__btn--by-increase" for="sort-time">
+          Time
+        </label>
+      </div>
 
-        <div class="trip-sort__item  trip-sort__item--price">
-          <input id="sort-price" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="sort-price">
-          <label class="trip-sort__btn" for="sort-price">
-            Price
-          </label>
-        </div>
+      <div class="trip-sort__item  trip-sort__item--price">
+        <input id="sort-price" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="sort-price">
+        <label class="trip-sort__btn" for="sort-price">
+          Price
+        </label>
+      </div>
 
-        <span class="trip-sort__item  trip-sort__item--offers">Offers</span>
-      </form>`
+      <span class="trip-sort__item  trip-sort__item--offers">Offers</span>
+    </form>`
   );
 }
 
@@ -329,7 +329,7 @@ const createFormComponent = () => {
     </header>
   </form>`
   );
-}
+};
 
 const createTripInfoComponent = () => {
   return (
@@ -339,17 +339,17 @@ const createTripInfoComponent = () => {
     <p class="trip-info__dates">Mar 18&nbsp;&mdash;&nbsp;21</p>
   </div>`
   );
-}
+};
 
 const createTripListComponent = () => {
   return (
     `<ul class="trip-days"></ul>`
   );
-}
+};
 
 const render = (container, component, place = `beforeend`) => {
   container.insertAdjacentHTML(place, component);
-}
+};
 
 const controls = document.querySelector(`.trip-controls`);
 render(controls, createMenuComponent());
@@ -369,5 +369,5 @@ const tripsList = tripcontainer.querySelector(`.trip-days`);
 new Array(TRIPS_AMOUNT)
   .fill(``)
   .forEach(
-    () => render(tripsList, createCardComponent())
+      () => render(tripsList, createCardComponent())
   );
