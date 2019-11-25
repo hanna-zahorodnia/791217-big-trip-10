@@ -1,10 +1,10 @@
-import {createMenuComponent} from './components/trip-tabs.js';
-import {createFilterComponent} from './components/trip-filters.js';
+import {createMenuComponent} from './components/menu.js';
+import {createFilterComponent} from './components/filter.js';
 import {createTripInfoComponent} from './components/trip-info.js';
-import {createSortComponent} from './components/sorting.js';
+import {createSortingComponent} from './components/sorting.js';
 import {createFormComponent} from './components/form.js';
 import {createTripListComponent} from './components/trip-list.js';
-import {createCardComponent} from './components/event.js';
+import {createCardComponent} from './components/card.js';
 
 
 const TRIPS_AMOUNT = 3;
@@ -22,7 +22,7 @@ render(tripInfo, createTripInfoComponent(), `afterbegin`);
 
 
 const tripcontainer = document.querySelector(`.trip-events`);
-render(tripcontainer, createSortComponent());
+render(tripcontainer, createSortingComponent());
 render(tripcontainer, createFormComponent());
 render(tripcontainer, createTripListComponent());
 
