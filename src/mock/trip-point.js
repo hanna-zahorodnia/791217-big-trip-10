@@ -1,3 +1,5 @@
+import {getRandomIntegerNumber, getRandomArrayItem} from "../utils.js";
+
 const types = [
   `Taxi`,
   `Bus`,
@@ -16,16 +18,6 @@ const cities = [
   `Geneva`,
   `Amsterdam`,
 ];
-
-const getRandomIntegerNumber = (min, max) => {
-  return min + Math.floor(max * Math.random());
-};
-
-const getRandomArrayItem = (array) => {
-  const randomIndex = getRandomIntegerNumber(0, array.length);
-
-  return array[randomIndex];
-};
 
 const sentences = [
   `Lorem ipsum dolor sit amet, consectetur adipiscing elit`,
@@ -60,18 +52,16 @@ const generateOptions = (options) => {
 };
 
 const getRandomDate = () => {
-  const targetDate = new Date();
-  const diffValue = getRandomIntegerNumber(0, 15);
-
-  targetDate.setHours(targetDate.getHours() + diffValue);
-
-  return targetDate;
+  return (
+    Date.now() +
+    1 +
+    Math.floor(Math.random() * 7) * 24 * getRandomIntegerNumber(0, 60) * 60 * 1000
+  );
 };
 
 const createTripPoint = () => {
-  const startTime = getRandomDate();
-  const duration = getRandomIntegerNumber(30, 120) * 60 * 1000;
-  const endTime = new Date(startTime.valueOf() + duration);
+  const startDate = getRandomDate();
+  const endDate = getRandomDate();
 
   return {
     type: getRandomArrayItem(types),
@@ -81,8 +71,8 @@ const createTripPoint = () => {
     // от 1 до 1000
     price: Math.floor(Math.random() * 1000) + 1,
     offers: generateOptions(extraOptions),
-    startTime,
-    endTime,
+    startTime: Math.min(startDate, endDate),
+    endTime: Math.max(startDate, endDate),
   };
 };
 
@@ -92,6 +82,7 @@ const createTripRoute = (count) => {
     .map(createTripPoint);
 };
 
+const card = createTripRoute();
 const cards = createTripRoute(3);
 
-export {cards};
+export {card, cards};

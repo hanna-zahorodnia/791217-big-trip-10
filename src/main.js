@@ -9,7 +9,7 @@ import {createCardComponent} from './components/card.js';
 
 import {menu} from "./mock/menu.js";
 import {filterNames} from "./mock/filter.js";
-import {cards} from "./mock/trip-point.js";
+import {card, cards} from "./mock/trip-point.js";
 
 
 const TRIPS_AMOUNT = 3;
@@ -36,9 +36,12 @@ const tripsDays = tripcontainer.querySelector(`.trip-days`);
 new Array(TRIPS_AMOUNT)
   .fill(``)
   .forEach(
-      () => render(tripsDays, createCardContainerComponent())
+      () => render(tripsDays, createCardContainerComponent(card))
   );
 
 const tripsList = tripcontainer.querySelector(`.trip-events__list`);
 
-cards.forEach((card) => render(tripsList, createCardComponent(card)));
+cards.forEach((cardInfo) => render(tripsList, createCardComponent(cardInfo)));
+
+const getFullPrice = cards.reduce((accumulator, item) => accumulator + item.price, 0);
+document.querySelector(`.trip-info__cost-value`).textContent = getFullPrice;
