@@ -1,4 +1,4 @@
-import {getRandomIntegerNumber, getRandomArrayItem} from "../utils.js";
+import {getRandomArrayItem, generateDescription, generateOptions, getRandomDate} from "../utils.js";
 
 const types = [
   `Taxi`,
@@ -33,31 +33,11 @@ const sentences = [
   `In rutrum ac purus sit amet tempus`
 ];
 
-const generateDescription = (description) => {
-  return description
-    .filter(() => Math.random() > 0.5)
-    .slice(0, getRandomIntegerNumber(1, 3));
-};
-
 const extraOptions = [
   {type: `Check-in`, name: `Add luggage`, price: `10`},
   {type: `Flight`, name: `Switch to comfort class`, price: `150`},
   {type: `Restaurant`, name: `Add meal`, price: `2`}
 ];
-
-const generateOptions = (options) => {
-  return options
-    .filter(() => Math.random() > 0.5)
-    .slice(0, getRandomIntegerNumber(0, 2));
-};
-
-const getRandomDate = () => {
-  return (
-    Date.now() +
-    1 +
-    Math.floor(Math.random() * 7) * 24 * getRandomIntegerNumber(0, 60) * 60 * 1000
-  );
-};
 
 const createTripPoint = () => {
   const startDate = getRandomDate();

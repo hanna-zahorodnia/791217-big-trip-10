@@ -1,6 +1,5 @@
 const createCitiesTemplate = (cards) => {
-  const cities = cards.map(({destination}) => destination);
-  return cities.map((destination, i) => i ? `&mdash; ${destination}` : `${destination}`).join(`\n`);
+  return cards.map(({destination}) => destination).join(` — `);
 };
 
 export const createTripInfoComponent = (cards) => {

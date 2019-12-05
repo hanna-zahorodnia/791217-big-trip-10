@@ -13,4 +13,24 @@ const getRandomArrayItem = (array) => {
   return array[randomIndex];
 };
 
-export {formatTime, getRandomIntegerNumber, getRandomArrayItem};
+const generateDescription = (description) => {
+  return description
+    .filter(() => Math.random() > 0.5)
+    .slice(0, getRandomIntegerNumber(1, 3));
+};
+
+const generateOptions = (options) => {
+  return options
+    .filter(() => Math.random() > 0.5)
+    .slice(0, getRandomIntegerNumber(0, 2));
+};
+
+const getRandomDate = () => {
+  return (
+    Date.now() +
+    1 +
+    Math.floor(Math.random() * 7) * 24 * getRandomIntegerNumber(0, 60) * 60 * 1000
+  );
+};
+
+export {formatTime, getRandomIntegerNumber, getRandomArrayItem, generateDescription, generateOptions, getRandomDate};
