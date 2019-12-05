@@ -4,7 +4,7 @@ import {createTripInfoComponent} from './components/trip-info.js';
 import {createSortingComponent} from './components/sorting.js';
 import {createFormComponent} from './components/form.js';
 import {createTripListComponent} from './components/trip-list.js';
-import {createCardContainerComponent} from './components/card.js';
+import {createTripDaysComponent} from './components/trip-days.js';
 import {createCardComponent} from './components/card.js';
 
 import {menu} from "./mock/menu.js";
@@ -36,7 +36,7 @@ const tripsDays = tripcontainer.querySelector(`.trip-days`);
 new Array(TRIPS_AMOUNT)
   .fill(``)
   .forEach(
-      () => render(tripsDays, createCardContainerComponent(card))
+      () => render(tripsDays, createTripDaysComponent(card))
   );
 
 const tripsList = tripcontainer.querySelector(`.trip-events__list`);

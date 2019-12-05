@@ -1,34 +1,10 @@
 import {formatTime} from "../utils.js";
-
-const createextraOptions = (extraOption) => {
-  return extraOption
-    .map((item) => (
-      `<li class="event__offer">
-        <span class="event__offer-title">${item.name}</span>
-        +
-        &euro;<span class="event__offer-price">${item.price}</span>
-      </li>`
-    ))
-    .join(``);
-};
-
-export const createCardContainerComponent = () => {
-  return (
-    `<li class="trip-days__item  day">
-    <div class="day__info">
-      <span class="day__counter">1</span>
-      <time class="day__date" datetime="2019-03-18">MAR 18</time>
-    </div>
-      <ul class="trip-events__list">
-      </ul>
-    </li>`
-  );
-};
+import {createExtraOptions} from "./extra-options.js";
 
 const createCardComponent = (card) => {
   const {type, destination, startTime, endTime, price, offers} = card;
 
-  const extraOptions = createextraOptions(Array.from(offers));
+  const extraOptions = createExtraOptions(Array.from(offers));
   return (
     `<li class="trip-events__item">
       <div class="event">
