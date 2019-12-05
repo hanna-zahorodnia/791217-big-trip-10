@@ -1,3 +1,5 @@
+import {MONTH} from "./const.js";
+
 const formatTime = (UTCTimestamp) => {
   const date = new Date(UTCTimestamp);
   return `${date.getHours()}:${date.getMinutes()}`;
@@ -33,4 +35,8 @@ const getRandomDate = () => {
   );
 };
 
-export {formatTime, getRandomIntegerNumber, getRandomArrayItem, generateDescription, generateOptions, getRandomDate};
+const getFullDate = (date) => (`${date.getFullYear()}-${formatTime(date.getMonth())}-${formatTime(date.getDate())}`);
+
+const getMonthString = (date) => (MONTH[date.getMonth()]);
+
+export {formatTime, getRandomIntegerNumber, getRandomArrayItem, generateDescription, generateOptions, getRandomDate, getFullDate, getMonthString};

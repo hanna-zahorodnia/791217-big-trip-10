@@ -62,7 +62,19 @@ const createTripRoute = (count) => {
     .map(createTripPoint);
 };
 
-const card = createTripRoute();
 const cards = createTripRoute(3);
 
-export {card, cards};
+export {cards};
+
+const DAYS_AMOUNT = 3;
+
+export const generateDays = () => (
+  new Array(DAYS_AMOUNT)
+    .fill(``)
+    .map((elem, index) => ({
+      day: index + 1,
+      dayInfo: createTripRoute(),
+      dayDate: new Date()
+    })
+    )
+);

@@ -1,12 +1,16 @@
-export const createTripDaysComponent = () => {
-  return (
-    `<li class="trip-days__item  day">
+import {getFullDate, getMonthString} from "../utils.js";
+
+export const createTripDaysComponent = (days) => (
+  days.map((elem, index) => (`
+    <li class="trip-days__item  day">
     <div class="day__info">
-      <span class="day__counter">1</span>
-      <time class="day__date" datetime="2019-03-18">MAR 18</time>
+      <span class="day__counter">${elem.day}</span>
+      <time class="day__date" datetime="${getFullDate(elem.dayDate)}">${getMonthString(elem.dayDate)} ${elem.dayDate.getDate() + index}</time>
     </div>
       <ul class="trip-events__list">
       </ul>
-    </li>`
-  );
-};
+    </li>
+    `))
+    .join(`\n`)
+);
+

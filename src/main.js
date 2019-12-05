@@ -9,10 +9,11 @@ import {createCardComponent} from './components/card.js';
 
 import {menu} from "./mock/menu.js";
 import {filterNames} from "./mock/filter.js";
-import {card, cards} from "./mock/trip-point.js";
-
+import {cards, generateDays} from "./mock/trip-point.js";
 
 const TRIPS_AMOUNT = 3;
+
+const days = generateDays();
 
 const render = (container, component, place = `beforeend`) => {
   container.insertAdjacentHTML(place, component);
@@ -23,7 +24,7 @@ render(controls, createMenuComponent(menu));
 render(controls, createFilterComponent(filterNames));
 
 const tripInfo = document.querySelector(`.trip-info`);
-render(tripInfo, createTripInfoComponent(cards), `afterbegin`);
+render(tripInfo, createTripInfoComponent(cards, days), `afterbegin`);
 
 
 const tripcontainer = document.querySelector(`.trip-events`);
@@ -32,11 +33,12 @@ render(tripcontainer, createFormComponent());
 render(tripcontainer, createTripListComponent());
 
 const tripsDays = tripcontainer.querySelector(`.trip-days`);
+render(tripsDays, createTripDaysComponent(days));
 
 new Array(TRIPS_AMOUNT)
   .fill(``)
   .forEach(
-      () => render(tripsDays, createTripDaysComponent(card))
+      () => render(tripsDays, createTripDaysComponent(days))
   );
 
 const tripsList = tripcontainer.querySelector(`.trip-events__list`);
