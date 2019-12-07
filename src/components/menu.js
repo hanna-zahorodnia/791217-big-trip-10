@@ -1,8 +1,11 @@
-export const createMenuComponent = () => {
+const createMenuComponent = (menu) => {
   return (
     `<nav class="trip-controls__trip-tabs  trip-tabs">
-      <a class="trip-tabs__btn  trip-tabs__btn--active" href="#">Table</a>
-      <a class="trip-tabs__btn" href="#">Stats</a>
-    </nav>`
-  );
+      ${menu.map(({isActive, name}) => {
+      return `<a class="trip-tabs__btn ${isActive ? `trip-tabs__btn--active` : ``}" href="#">${name}</a>`;
+    })
+    }
+    </nav>`);
 };
+
+export {createMenuComponent};
