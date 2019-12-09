@@ -1,5 +1,17 @@
 import {MONTH} from "./const.js";
 
+const RenderPosition = {
+  AFTERBEGIN: `afterbegin`,
+  BEFOREEND: `beforeend`
+};
+
+const cities = [
+  `Chamonix`,
+  `Geneva`,
+  `Amsterdam`,
+  `Saint Petersburg`
+];
+
 const formatTime = (UTCTimestamp) => {
   const date = new Date(UTCTimestamp);
   return `${date.getHours()}:${date.getMinutes()}`;
@@ -39,4 +51,30 @@ const getFullDate = (date) => (`${date.getFullYear()}-${formatTime(date.getMonth
 
 const getMonthString = (date) => (MONTH[date.getMonth()]);
 
-export {formatTime, getRandomIntegerNumber, getRandomArrayItem, generateDescription, generateOptions, getRandomDate, getFullDate, getMonthString};
+const createElement = (template) => {
+  const newElement = document.createElement(`div`);
+  newElement.innerHTML = template;
+
+  return newElement.firstChild;
+};
+
+const getCity = () => (
+  cities.map((city) => (
+    `<option value="${city}"></option>`
+  ))
+  .join(`\n`)
+);
+
+
+const render = (container, element, place) => {
+  switch (place) {
+    case RenderPosition.AFTERBEGIN:
+      container.prepend(element);
+      break;
+    case RenderPosition.BEFOREEND:
+      container.append(element);
+      break;
+  }
+};
+
+export {formatTime, getRandomIntegerNumber, getRandomArrayItem, generateDescription, generateOptions, getRandomDate, getFullDate, getMonthString, RenderPosition, createElement, render, getCity};

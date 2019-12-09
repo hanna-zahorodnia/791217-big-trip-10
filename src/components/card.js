@@ -1,4 +1,4 @@
-import {formatTime} from "../utils.js";
+import {formatTime, createElement} from "../utils.js";
 import {createExtraOptions} from "./extra-options.js";
 
 const createCardComponent = (card) => {
@@ -39,4 +39,25 @@ const createCardComponent = (card) => {
   );
 };
 
-export {createCardComponent};
+export default class Card {
+  constructor(card) {
+    this._card = card;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createCardComponent(this._card);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

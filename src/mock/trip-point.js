@@ -17,6 +17,7 @@ const cities = [
   `Chamonix`,
   `Geneva`,
   `Amsterdam`,
+  `Saint Petersburg`
 ];
 
 const sentences = [
@@ -39,7 +40,7 @@ const extraOptions = [
   {type: `Restaurant`, name: `Add meal`, price: `2`}
 ];
 
-const createTripPoint = () => {
+export const createTripPoint = () => {
   const startDate = getRandomDate();
   const endDate = getRandomDate();
 
@@ -64,11 +65,9 @@ const createTripRoute = (count) => {
 
 const cards = createTripRoute(3);
 
-export {cards};
-
 const DAYS_AMOUNT = 3;
 
-export const generateDays = () => (
+const generateDays = () => (
   new Array(DAYS_AMOUNT)
     .fill(``)
     .map((elem, index) => ({
@@ -78,3 +77,5 @@ export const generateDays = () => (
     })
     )
 );
+
+export {cards, generateDays};

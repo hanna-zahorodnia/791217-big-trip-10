@@ -1,49 +1,43 @@
-import {createMenuComponent} from './components/menu.js';
-import {createFilterComponent} from './components/filter.js';
-import {createTripInfoComponent} from './components/trip-info.js';
-import {createSortingComponent} from './components/sorting.js';
-import {createFormComponent} from './components/form.js';
-import {createTripListComponent} from './components/trip-list.js';
-import {createTripDaysComponent} from './components/trip-days.js';
-import {createCardComponent} from './components/card.js';
+import MenuComponent from './components/menu.js';
+import FiltersComponent from './components/filter.js';
+import TripInfoComponent from './components/trip-info.js';
+import SortingComponent from './components/sorting.js';
+import FormComponent from './components/form.js';
+import TripListComponent from './components/trip-list.js';
+import TripDaysComponent from './components/trip-days.js';
+import CardComponent from './components/card.js';
 
 import {menu} from "./mock/menu.js";
 import {filterNames} from "./mock/filter.js";
-import {cards, generateDays} from "./mock/trip-point.js";
+import {cards, generateDays, createTripPoint} from "./mock/trip-point.js";
+import {render, RenderPosition} from './utils.js';
 
+const formCard = createTripPoint();
 const TRIPS_AMOUNT = 3;
 
 const days = generateDays();
 
-const render = (container, component, place = `beforeend`) => {
-  container.insertAdjacentHTML(place, component);
-};
 
 const controls = document.querySelector(`.trip-controls`);
-render(controls, createMenuComponent(menu));
-render(controls, createFilterComponent(filterNames));
+render(controls, new MenuComponent(menu).getElement(), RenderPosition.BEFOREEND);
+render(controls, new FiltersComponent(filterNames).getElement(), RenderPosition.BEFOREEND);
 
 const tripInfo = document.querySelector(`.trip-info`);
-render(tripInfo, createTripInfoComponent(cards, days), `afterbegin`);
+render(tripInfo, new TripInfoComponent(cards, days).getElement(), RenderPosition.AFTERBEGIN);
 
+const tripContainer = document.querySelector(`.trip-events`);
+render(tripContainer, new SortingComponent().getElement(), RenderPosition.BEFOREEND);
+render(tripContainer, new FormComponent(formCard).getElement(), RenderPosition.BEFOREEND);
+render(tripContainer, new TripListComponent().getElement(), RenderPosition.BEFOREEND);
 
-const tripcontainer = document.querySelector(`.trip-events`);
-render(tripcontainer, createSortingComponent());
-render(tripcontainer, createFormComponent());
-render(tripcontainer, createTripListComponent());
+const tripsDays = tripContainer.querySelector(`.trip-days`);
 
-const tripsDays = tripcontainer.querySelector(`.trip-days`);
-render(tripsDays, createTripDaysComponent(days));
+days.slice(0, TRIPS_AMOUNT)
+  .forEach((day) => render(tripsDays, new TripDaysComponent(day).getElement(), RenderPosition.BEFOREEND));
 
-new Array(TRIPS_AMOUNT)
-  .fill(``)
-  .forEach(
-      () => render(tripsDays, createTripDaysComponent(days))
-  );
+const tripsList = tripContainer.querySelector(`.trip-events__list`);
 
-const tripsList = tripcontainer.querySelector(`.trip-events__list`);
-
-cards.forEach((cardInfo) => render(tripsList, createCardComponent(cardInfo)));
+cards.forEach((cardInfo) => render(tripsList, new CardComponent(cardInfo).getElement(), RenderPosition.BEFOREEND));
 
 const getFullPrice = cards.reduce((accumulator, item) => accumulator + item.price, 0);
 document.querySelector(`.trip-info__cost-value`).textContent = getFullPrice;
