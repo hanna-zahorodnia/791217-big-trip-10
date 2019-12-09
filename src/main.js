@@ -9,10 +9,9 @@ import CardComponent from './components/card.js';
 
 import {menu} from "./mock/menu.js";
 import {filterNames} from "./mock/filter.js";
-import {cards, generateDays, createTripPoint} from "./mock/trip-point.js";
+import {cards, generateDays} from "./mock/trip-point.js";
 import {render, RenderPosition} from './utils.js';
 
-const formCard = createTripPoint();
 const TRIPS_AMOUNT = 3;
 
 const days = generateDays();
@@ -27,17 +26,45 @@ render(tripInfo, new TripInfoComponent(cards, days).getElement(), RenderPosition
 
 const tripContainer = document.querySelector(`.trip-events`);
 render(tripContainer, new SortingComponent().getElement(), RenderPosition.BEFOREEND);
-render(tripContainer, new FormComponent(formCard).getElement(), RenderPosition.BEFOREEND);
+
 render(tripContainer, new TripListComponent().getElement(), RenderPosition.BEFOREEND);
 
 const tripsDays = tripContainer.querySelector(`.trip-days`);
 
+const renderEvent = (container, eventData) => {
+  const cardComponent = new CardComponent(eventData);
+  const formComponent = new FormComponent(eventData);
+
+  const editArrow = cardComponent.getElement().querySelector(`.event__rollup-btn`);
+  editArrow.addEventListener(`click`, () => {
+    container.replaceChild(formComponent.getElement(), cardComponent.getElement());
+  });
+
+  const editForm = formComponent.getElement().querySelector(`form`);
+  editForm.addEventListener(`submit`, () => {
+    container.replaceChild(cardComponent.getElement(), formComponent.getElement());
+  });
+
+  const editFormBtn = formComponent.getElement().querySelector(`.event__rollup-btn`);
+  editFormBtn.addEventListener(`click`, () => {
+    container.replaceChild(cardComponent.getElement(), formComponent.getElement());
+  });
+
+
+  render(container, cardComponent.getElement(), RenderPosition.BEFOREEND);
+};
+
 days.slice(0, TRIPS_AMOUNT)
-  .forEach((day) => render(tripsDays, new TripDaysComponent(day).getElement(), RenderPosition.BEFOREEND));
+  .forEach((day) => {
+    const daysComponent = new TripDaysComponent(day);
+    const tripsList = daysComponent.getElement().querySelector(`.trip-events__list`);
 
-const tripsList = tripContainer.querySelector(`.trip-events__list`);
+    day.dayInfo.forEach((eventData) => {
+      renderEvent(tripsList, eventData);
+    });
 
-cards.forEach((cardInfo) => render(tripsList, new CardComponent(cardInfo).getElement(), RenderPosition.BEFOREEND));
+    render(tripContainer, daysComponent.getElement(), RenderPosition.BEFOREEND);
+  });
 
 const getFullPrice = cards.reduce((accumulator, item) => accumulator + item.price, 0);
 document.querySelector(`.trip-info__cost-value`).textContent = getFullPrice;

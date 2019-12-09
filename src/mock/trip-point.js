@@ -40,7 +40,9 @@ const extraOptions = [
   {type: `Restaurant`, name: `Add meal`, price: `2`}
 ];
 
-export const createTripPoint = () => {
+const getBoolean = () => (Math.random() > 0.5);
+
+const createTripPoint = () => {
   const startDate = getRandomDate();
   const endDate = getRandomDate();
 
@@ -54,6 +56,7 @@ export const createTripPoint = () => {
     offers: generateOptions(extraOptions),
     startTime: Math.min(startDate, endDate),
     endTime: Math.max(startDate, endDate),
+    favorite: getBoolean()
   };
 };
 
