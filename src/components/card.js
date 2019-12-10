@@ -1,10 +1,7 @@
 import {formatTime, createElement} from "../utils.js";
-import {createExtraOptions} from "./extra-options.js";
 
 const createCardComponent = (card) => {
   const {type, destination, startTime, endTime, price, offers} = card;
-
-  const extraOptions = createExtraOptions(Array.from(offers));
   return (
     `<li class="trip-events__item">
       <div class="event">
@@ -28,9 +25,14 @@ const createCardComponent = (card) => {
 
         <h4 class="visually-hidden">Offers:</h4>
         <ul class="event__selected-offers">
-        ${extraOptions}
+        ${offers.map((item) => {
+      return `<li class="event__offer">
+        <span class="event__offer-title">${item.name}</span>
+        +
+        &euro;<span class="event__offer-price">${item.price}</span>
+      </li>`;
+    })}
         </ul>
-
         <button class="event__rollup-btn" type="button">
           <span class="visually-hidden">Open event</span>
         </button>

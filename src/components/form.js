@@ -1,11 +1,24 @@
 import {createElement, getCity, formatTime} from "../utils.js";
-import {getOffersList} from "./offers-list.js";
 
-import {getTypeFieldset} from "./type-fieldset.js";
+const eventOptions = [
+  {type: `Transfer`, options: [
+    {text: `Taxi`, name: `taxi`, isChecked: false},
+    {text: `Bus`, name: `bus`, isChecked: false},
+    {text: `Train`, name: `train`, isChecked: false},
+    {text: `Ship`, name: `ship`, isChecked: false},
+    {text: `Transport`, name: `transport`, isChecked: false},
+    {text: `Drive`, name: `drive`, isChecked: false},
+    {text: `Flight`, name: `flight`, isChecked: true}
+  ]},
+  {type: `Activity`, options: [
+    {text: `Check-in`, name: `check-in`, isChecked: false},
+    {text: `Sightseeing`, name: `sightseeing`, isChecked: false},
+    {text: `Restaurant`, name: `restaurant`, isChecked: false}
+  ]}
+];
 
 const createFormComponent = (eventData) => {
   const {offers, type, destination, startTime, endTime, price, favorite, description, img} = eventData;
-  const options = getOffersList(Array.from(offers));
   return (
     `<li class="trip-events__item">
         <form class="event  event--edit" action="#" method="post">
@@ -17,7 +30,19 @@ const createFormComponent = (eventData) => {
               </label>
               <input class="event__type-toggle  visually-hidden" id="event-type-toggle-1" type="checkbox">
               <div class="event__type-list">
-                ${getTypeFieldset(type)}
+
+              ${eventOptions.map((element) => {
+      return `<fieldset class="event__type-group">
+        <legend class="visually-hidden">${element.type}</legend>
+        <div class="event__type-item">
+        ${element.options.map(({isChecked, name}) => {
+      return `<input id="event-type-${name}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${name}" ${isChecked ? `checked` : ``}>;
+        <label class="event__type-label  event__type-label--${name}" for="event-type-${name}-1">${name}</label>`;
+    })
+    }
+    </div>
+  </fieldset>`;
+    })}
               </div>
             </div>
             <div class="event__field-group  event__field-group--destination">
@@ -64,7 +89,18 @@ const createFormComponent = (eventData) => {
             <section class="event__section  event__section--offers">
               <h3 class="event__section-title  event__section-title--offers">Offers</h3>
               <div class="event__available-offers">
-                ${options}
+                ${offers.map((element) => {
+      return `<div class="event__offer-selector">
+      <input class="event__offer-checkbox  visually-hidden" id="event-offer-${element.name}-1" type="checkbox" name="event-offer-${element.name}" ${element.checked ? `checked` : ``}>
+      <label class="event__offer-label" for="event-offer-${element.name}-1">
+        <span class="event__offer-title">${element.type}</span>
+        +
+        €&nbsp;<span class="event__offer-price">${element.price}</span>
+      </label>
+    </div>`;
+    })}
+
+
               </div>
             </section>
             <section class="event__section  event__section--destination">

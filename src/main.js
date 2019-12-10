@@ -29,7 +29,7 @@ render(tripContainer, new SortingComponent().getElement(), RenderPosition.BEFORE
 
 render(tripContainer, new TripListComponent().getElement(), RenderPosition.BEFOREEND);
 
-const tripsDays = tripContainer.querySelector(`.trip-days`);
+// const tripsDays = tripContainer.querySelector(`.trip-days`);
 
 const renderEvent = (container, eventData) => {
   const cardComponent = new CardComponent(eventData);
