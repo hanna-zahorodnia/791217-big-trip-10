@@ -1,10 +1,7 @@
-import {formatTime} from "../utils.js";
-import {createExtraOptions} from "./extra-options.js";
+import {formatTime, createElement} from "../utils.js";
 
 const createCardComponent = (card) => {
   const {type, destination, startTime, endTime, price, offers} = card;
-
-  const extraOptions = createExtraOptions(Array.from(offers));
   return (
     `<li class="trip-events__item">
       <div class="event">
@@ -28,9 +25,14 @@ const createCardComponent = (card) => {
 
         <h4 class="visually-hidden">Offers:</h4>
         <ul class="event__selected-offers">
-        ${extraOptions}
+        ${offers.map((item) => {
+      return `<li class="event__offer">
+        <span class="event__offer-title">${item.name}</span>
+        +
+        &euro;<span class="event__offer-price">${item.price}</span>
+      </li>`;
+    })}
         </ul>
-
         <button class="event__rollup-btn" type="button">
           <span class="visually-hidden">Open event</span>
         </button>
@@ -39,4 +41,25 @@ const createCardComponent = (card) => {
   );
 };
 
-export {createCardComponent};
+export default class Card {
+  constructor(card) {
+    this._card = card;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createCardComponent(this._card);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
