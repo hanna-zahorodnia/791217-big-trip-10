@@ -10,12 +10,11 @@ import CardComponent from './components/card.js';
 import {menu} from "./mock/menu.js";
 import {filterNames} from "./mock/filter.js";
 import {cards, generateDays} from "./mock/trip-point.js";
-import {render, RenderPosition} from './utils.js';
+import {render, RenderPosition, replace} from './utils/render.js';
 
 const TRIPS_AMOUNT = 3;
 
 const days = generateDays();
-
 
 const controls = document.querySelector(`.trip-controls`);
 render(controls, new MenuComponent(menu).getElement(), RenderPosition.BEFOREEND);
@@ -25,6 +24,8 @@ const tripInfo = document.querySelector(`.trip-info`);
 render(tripInfo, new TripInfoComponent(cards, days).getElement(), RenderPosition.AFTERBEGIN);
 
 const tripContainer = document.querySelector(`.trip-events`);
+
+
 render(tripContainer, new SortingComponent().getElement(), RenderPosition.BEFOREEND);
 
 render(tripContainer, new TripListComponent().getElement(), RenderPosition.BEFOREEND);
@@ -35,19 +36,16 @@ const renderEvent = (container, eventData) => {
   const cardComponent = new CardComponent(eventData);
   const formComponent = new FormComponent(eventData);
 
-  const editArrow = cardComponent.getElement().querySelector(`.event__rollup-btn`);
-  editArrow.addEventListener(`click`, () => {
-    container.replaceChild(formComponent.getElement(), cardComponent.getElement());
+  cardComponent.setClickHandler(() => {
+    replace(formComponent, cardComponent);
   });
 
-  const editForm = formComponent.getElement().querySelector(`form`);
-  editForm.addEventListener(`submit`, () => {
-    container.replaceChild(cardComponent.getElement(), formComponent.getElement());
+  formComponent.setSubmitHandler(() => {
+    replace(cardComponent, formComponent);
   });
 
-  const editFormBtn = formComponent.getElement().querySelector(`.event__rollup-btn`);
-  editFormBtn.addEventListener(`click`, () => {
-    container.replaceChild(cardComponent.getElement(), formComponent.getElement());
+  formComponent.setEditBtnClickHandler(() => {
+    replace(cardComponent, formComponent);
   });
 
 

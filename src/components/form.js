@@ -1,4 +1,5 @@
-import {createElement, getCity, formatTime} from "../utils.js";
+import {getCity, formatTime} from "../utils.js";
+import AbstractComponent from './abstract-component.js';
 
 const eventOptions = [
   {type: `Transfer`, options: [
@@ -118,25 +119,23 @@ const createFormComponent = (eventData) => {
   );
 };
 
-export default class Form {
+export default class Form extends AbstractComponent {
   constructor(card) {
+    super();
     this._card = card;
-    this._element = null;
   }
 
   getTemplate() {
     return createFormComponent(this._card);
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
+  setSubmitHandler(handler) {
+    this.getElement().querySelector(`form`)
+      .addEventListener(`submit`, handler);
   }
 
-  removeElement() {
-    this._element = null;
+  setEditBtnClickHandler(handler) {
+    this.getElement().querySelector(`.event__rollup-btn`)
+      .addEventListener(`click`, handler);
   }
 }
