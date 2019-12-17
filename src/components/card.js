@@ -1,4 +1,5 @@
-import {formatTime, createElement} from "../utils.js";
+import {formatTime} from "../utils.js";
+import AbstractComponent from './abstract-component.js';
 
 const createCardComponent = (card) => {
   const {type, destination, startTime, endTime, price, offers} = card;
@@ -41,25 +42,18 @@ const createCardComponent = (card) => {
   );
 };
 
-export default class Card {
+export default class Card extends AbstractComponent {
   constructor(card) {
+    super();
     this._card = card;
-    this._element = null;
   }
 
   getTemplate() {
     return createCardComponent(this._card);
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
+  setClickHandler(handler) {
+    this.getElement().querySelector(`.event__rollup-btn`)
+      .addEventListener(`click`, handler);
   }
 }

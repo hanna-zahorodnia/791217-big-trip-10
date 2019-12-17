@@ -1,5 +1,5 @@
-import {getMonthString, createElement} from "../utils.js";
-
+import {getMonthString} from "../utils.js";
+import AbstractComponent from './abstract-component.js';
 
 const createCitiesTemplate = (cards) => {
   return cards.map(({destination}) => destination).join(` — `);
@@ -23,26 +23,14 @@ export const createTripInfoComponent = (cards, data) => {
   );
 };
 
-export default class TripInfo {
+export default class TripInfo extends AbstractComponent {
   constructor(cards, data) {
+    super();
     this._cards = cards;
     this._data = data;
-    this._element = null;
   }
 
   getTemplate() {
     return createTripInfoComponent(this._cards, this._data);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

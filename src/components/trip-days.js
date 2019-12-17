@@ -1,4 +1,5 @@
-import {getFullDate, getMonthString, createElement} from "../utils.js";
+import {getFullDate, getMonthString} from "../utils.js";
+import AbstractComponent from './abstract-component.js';
 
 const createTripDaysComponent = (dayData) => (
   `<li class="trip-days__item  day">
@@ -11,26 +12,15 @@ const createTripDaysComponent = (dayData) => (
   </li>`
 );
 
-export default class TripDays {
+
+export default class TripDays extends AbstractComponent {
   constructor(days) {
+    super();
     this._days = days;
-    this._element = null;
   }
 
   getTemplate() {
     return createTripDaysComponent(this._days);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
 
